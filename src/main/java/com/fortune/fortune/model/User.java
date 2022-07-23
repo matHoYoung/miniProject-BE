@@ -14,7 +14,7 @@ import java.util.Date;
 public class User {
 
     // ID가 자동으로 생성 및 증가합니다.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 
@@ -30,13 +30,14 @@ public class User {
     private String nickname;
 
     @Column(nullable = false)
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
 
-    public User(String username, String password, String nickname, Date dateOfBirth) {
+    public User(String username, String password, String nickname, String dateOfBirth ) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.dateOfBirth = dateOfBirth;
+
     }
 }
