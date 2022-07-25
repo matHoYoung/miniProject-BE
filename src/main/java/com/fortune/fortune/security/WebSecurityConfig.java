@@ -48,23 +48,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
+
+//                .and()
+                    // [로그인 기능]
+//                    .formLogin()
+//                    // 로그인 View 제공 (GET /user/login)
+//                    .loginPage("/api/user/login")
+                    // 로그인 처리 (POST /user/login)
+//                    .loginProcessingUrl("/api/user/login").permitAll()
+                    // 로그인 처리 후 실패 시 URL
+//                    .defaultSuccessUrl("/")
+//                    .failureUrl("/api/user/login?error")
+//                    .permitAll()
+
                 .and()
-                // [로그인 기능]
-                .formLogin()
-                // 로그인 View 제공 (GET /user/login)
-                .loginPage("/api/user/login")
-                // 로그인 처리 (POST /user/login)
-                .loginProcessingUrl("/api/user/login")
-                // 로그인 처리 후 성공 시 URL
-                .defaultSuccessUrl("/")
-                // 로그인 처리 후 실패 시 URL
-                .failureUrl("/api/user/login?error")
-                .permitAll()
-                .and()
-                // [로그아웃 기능]
-                .logout()
-                // 로그아웃 처리 URL
-                .logoutUrl("/api/user/logout")
-                .permitAll();
+                    // [로그아웃 기능]
+                    .logout()
+                    // 로그아웃 처리 URL
+                    .logoutUrl("/api/user/logout")
+                    .permitAll();
     }
 }
