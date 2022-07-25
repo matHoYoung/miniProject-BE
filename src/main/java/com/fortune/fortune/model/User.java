@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -30,17 +29,27 @@ public class User {
     private String nickname;
 
     @Column(nullable = false)
-    private String dateOfBirth;
+    private String dateofbirth;
+
+    @Column(nullable = false)
+    private  String zodiacsign;
+
+    @Column(nullable = false)
+    private  String starposition;
 
     @Column(nullable = false)
     private String fortune;
 
 
-    public User(String username, String password, String nickname, String dateOfBirth ) {
+
+
+    public User(String username, String password, String nickname, String dateofbirth, String zodiacsign, String starposition) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        this.dateOfBirth = dateOfBirth;
+        this.dateofbirth = dateofbirth;
+        this.zodiacsign = zodiacsign;
+        this.starposition = starposition;
 
     }
 }

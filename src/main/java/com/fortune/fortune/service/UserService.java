@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private static final String ADMIN_TOKEN = "AAABnv/xRVklrnYxKZ0aHgTBcXukeZygoC";
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -41,8 +40,104 @@ public class UserService {
         String password = passwordEncoder.encode(requestDto.getPassword());
 
         String dateOfBirth = requestDto.getDateOfBirth();
+        int[] date = Arrays.stream(dateOfBirth.split("\\."))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-        User user = new User(username, password, nickname, dateOfBirth);
+
+
+        String zodiacSign = getZodiacSign(date[0]);
+        String starPosition = getstarPosition(date[1],date[2]);
+
+        User user = new User(username, password, nickname, dateOfBirth, zodiacSign, starPosition );
         userRepository.save(user);
+    }
+
+    private String getstarPosition(int Month, int day) {
+        String starPosition = "";
+        int starday = Month*100 +day;
+        if (starday >= 120  && starday <= 218) {
+            starPosition = "AQUARIUS";
+
+        } else if (starday >= 219  && starday <= 320 ) {
+            starPosition = "PISCES";
+            
+        } else if (starday >= 321  && starday <= 419) {
+            starPosition = "ARIES";
+
+        } else if (starday >= 420  && starday <= 520 ) {
+            starPosition = "TAURUS";
+
+        } else if (starday >= 521  && starday <= 621 ) {
+            starPosition = "GEMINI";
+
+        } else if (starday >= 622  && starday <= 722 ) {
+            starPosition = "CANOER";
+
+        } else if (starday >= 723  && starday <= 822 ) {
+            starPosition = "LEO";
+
+        } else if (starday >= 823  && starday <= 923) {
+            starPosition = "VIRGO";
+
+        } else if (starday >= 924 && starday <= 1022 ) {
+            starPosition = "LIBRA";
+
+        } else if (starday >= 1023 && starday <= 1122 ) {
+            starPosition = "SCORPIUS";
+
+        } else if (starday >= 1123 && starday <= 1224 ) {
+            starPosition = "SAGITTARIUS";
+
+        } else{
+            starPosition = "CAPRICORNUS";
+        }
+        return starPosition;
+    }
+
+    private String getZodiacSign(int year) {
+        String zodiacSign = "";
+
+        switch(year%12) {
+            case 0:
+                zodiacSign = "MONKEY";
+                break;
+            case 1:
+                zodiacSign = "CHICKEN";
+                break;
+            case 2:
+                zodiacSign = "DOG";
+                break;
+            case 3:
+                zodiacSign = "PIG";
+                break;
+            case 4:
+                zodiacSign = "RAT";
+                break;
+            case 5:
+                zodiacSign = "COW";
+                break;
+            case 6:
+                zodiacSign = "TIGER";
+                break;
+            case 7:
+                zodiacSign = "RABBIT";
+                break;
+            case 8:
+                zodiacSign = "DRAGON";
+                break;
+            case 9:
+                zodiacSign = "SNAKE";
+                break;
+            case 10:
+                zodiacSign = "HORSE";
+                break;
+            case 11:
+                zodiacSign = "SHEEP";
+                break;
+        }
+        return zodiacSign;
+
+
     }
 }
