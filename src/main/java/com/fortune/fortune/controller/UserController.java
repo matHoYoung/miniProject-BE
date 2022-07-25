@@ -3,11 +3,11 @@ package com.fortune.fortune.controller;
 import com.fortune.fortune.dto.SignupRequestDto;
 import com.fortune.fortune.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -33,6 +33,6 @@ public class UserController {
     @PostMapping("/api/user/signup")
     public String registerUser(SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
-        return "login";
+        return "회원가입 완료";
     }
 }
