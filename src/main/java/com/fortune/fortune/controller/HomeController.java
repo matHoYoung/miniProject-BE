@@ -15,5 +15,4 @@ public class HomeController {
         model.addAttribute("starposition", userDetails.getUser().getStarposition());
         return "index";
     }
-
 }

@@ -37,8 +37,6 @@ public class User {
     @Column(nullable = false)
     private  String starposition;
 
-    @Column(nullable = false)
-    private String fortune;
 
 
 
@@ -50,6 +48,5 @@ public class User {
         this.dateofbirth = dateofbirth;
         this.zodiacsign = zodiacsign;
         this.starposition = starposition;
-
     }
 }

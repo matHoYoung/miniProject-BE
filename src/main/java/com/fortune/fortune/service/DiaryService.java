@@ -2,6 +2,7 @@ package com.fortune.fortune.service;
 
 import com.fortune.fortune.dto.DiaryRequestDto;
 import com.fortune.fortune.model.Diary;
+import com.fortune.fortune.model.Fortune;
 import com.fortune.fortune.repository.DiaryRepository;
 import com.fortune.fortune.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ public class DiaryService {
         String nickName = userDetails.getUser().getNickname();
 
         Diary diary = new Diary(requestDto, userId, nickName);
-
         return diaryRepository.save(diary);
     }
 

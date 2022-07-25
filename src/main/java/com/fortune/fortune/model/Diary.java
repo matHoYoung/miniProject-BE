@@ -18,7 +18,7 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String contents;
 
     @Column(nullable = false)
@@ -27,8 +27,13 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
     @Column(nullable = false)
     private String nickname;
 
-    public Diary(DiaryRequestDto requestDto, Long userid, String nickname) {
+    @OneToOne
+    @JoinColumn(name = "FORTUNE_ID",nullable = false)
+    private Fortune fortune;
+
+    public Diary(DiaryRequestDto requestDto,Fortune fortune, Long userid, String nickname) {
         this.contents = requestDto.getContents();
+        this.fortune = fortune;
         this.userid = userid;
         this.nickname = nickname;
     }

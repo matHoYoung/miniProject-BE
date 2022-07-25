@@ -49,7 +49,7 @@ public class UserService {
         String zodiacSign = getZodiacSign(date[0]);
         String starPosition = getstarPosition(date[1],date[2]);
 
-        User user = new User(username, password, nickname, dateOfBirth, zodiacSign, starPosition );
+        User user = new User(username, password, nickname, dateOfBirth, zodiacSign, starPosition);
         userRepository.save(user);
     }
 

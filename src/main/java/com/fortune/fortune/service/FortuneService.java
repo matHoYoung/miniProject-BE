@@ -1,15 +1,14 @@
 package com.fortune.fortune.service;
 
+import com.fortune.fortune.dto.FortuneDto;
 import com.fortune.fortune.model.Fortune;
-import com.fortune.fortune.model.User;
+import com.fortune.fortune.repository.DiaryRepository;
 import com.fortune.fortune.repository.FortuneRepository;
+import com.fortune.fortune.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class FortuneService {
@@ -41,13 +40,17 @@ public class FortuneService {
 //
 //        return getFortune;
 //    }
-        public Fortune showFortune() {
+        public String showFortune() {
             //Long qty = fortuneRepository.countByUserNotAndFortuneNotIn();
+
             long qty = fortuneRepository.count();
             int idx = (int) (Math.random() * qty);
             Long longId = Long.valueOf(idx);
-            return fortuneRepository.findAllById(longId);
-            }
+            Fortune randomFortune = fortuneRepository.findAllById(longId);
+
+            return randomFortune.getFortune();
+        }
+
 }
 
 
