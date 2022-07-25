@@ -1,10 +1,12 @@
 package com.fortune.fortune.model;
 
+import com.fortune.fortune.dto.SignupRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -49,4 +51,6 @@ public class User {
         this.zodiacsign = zodiacsign;
         this.starposition = starposition;
     }
+
+
 }

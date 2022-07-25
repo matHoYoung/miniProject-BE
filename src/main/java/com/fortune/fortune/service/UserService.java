@@ -1,13 +1,17 @@
 package com.fortune.fortune.service;
 
+import com.fortune.fortune.dto.LoginRequestDto;
+import com.fortune.fortune.dto.LoginResponseDto;
 import com.fortune.fortune.dto.SignupRequestDto;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+import javax.jws.soap.SOAPBinding;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -22,24 +26,24 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(SignupRequestDto requestDto) {
+    public void registerUser(SignupRequestDto signupRequestDto ) {
         // 회원 ID 중복 확인
-        String username = requestDto.getUsername();
+        String username = signupRequestDto.getUsername();
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
         }
 
-        String nickname = requestDto.getNickname();
+        String nickname = signupRequestDto.getNickname();
         Optional<User> found2 = userRepository.findByNickname(nickname);
         if (found2.isPresent()) {
             throw new IllegalArgumentException("중복된 닉네임이 존재합니다.");
         }
 
         // 패스워드 암호화
-        String password = passwordEncoder.encode(requestDto.getPassword());
+        String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
-        String dateOfBirth = requestDto.getDateOfBirth();
+        String dateOfBirth = signupRequestDto.getDateOfBirth();
         int[] date = Arrays.stream(dateOfBirth.split("\\."))
                 .mapToInt(Integer::parseInt)
                 .toArray();
@@ -49,9 +53,23 @@ public class UserService {
         String zodiacSign = getZodiacSign(date[0]);
         String starPosition = getstarPosition(date[1],date[2]);
 
-        User user = new User(username, password, nickname, dateOfBirth, zodiacSign, starPosition);
+        User user = new User(username, password, nickname, dateOfBirth ,zodiacSign, starPosition );
         userRepository.save(user);
+
     }
+
+    public LoginResponseDto loginUser(LoginRequestDto requestDto) {
+        User user = userRepository.findByUsername(requestDto.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다. "));
+        if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname());
+
+        return loginResponseDto;
+
+    }
+
 
     private String getstarPosition(int Month, int day) {
         String starPosition = "";
@@ -140,4 +158,5 @@ public class UserService {
 
 
     }
+
 }
