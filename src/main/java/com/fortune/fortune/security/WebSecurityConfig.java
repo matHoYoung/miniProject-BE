@@ -52,19 +52,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // [로그인 기능]
                 .formLogin()
                 // 로그인 View 제공 (GET /user/login)
-                .loginPage("/user/login")
+                .loginPage("/api/user/login")
                 // 로그인 처리 (POST /user/login)
-                .loginProcessingUrl("/user/login")
+                .loginProcessingUrl("/api/user/login")
                 // 로그인 처리 후 성공 시 URL
                 .defaultSuccessUrl("/")
                 // 로그인 처리 후 실패 시 URL
-                .failureUrl("/user/login?error")
+                .failureUrl("/api/user/login?error")
                 .permitAll()
                 .and()
                 // [로그아웃 기능]
                 .logout()
                 // 로그아웃 처리 URL
-                .logoutUrl("/user/logout")
+                .logoutUrl("/api/user/logout")
                 .permitAll();
     }
 }
