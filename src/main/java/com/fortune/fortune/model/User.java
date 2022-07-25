@@ -32,6 +32,9 @@ public class User {
     @Column(nullable = false)
     private String dateOfBirth;
 
+    @Column(nullable = false)
+    private String fortune;
+
 
     public User(String username, String password, String nickname, String dateOfBirth ) {
         this.username = username;
