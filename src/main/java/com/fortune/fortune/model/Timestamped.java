@@ -15,6 +15,6 @@ import java.time.LocalDateTime;
 public abstract class Timestamped {
 
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "MM월 dd일")
     private LocalDateTime createdAt;
 }

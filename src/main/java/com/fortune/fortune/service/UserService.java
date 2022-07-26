@@ -5,7 +5,12 @@ import com.fortune.fortune.dto.LoginResponseDto;
 import com.fortune.fortune.dto.SignupRequestDto;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.UserRepository;
+import com.fortune.fortune.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,11 +22,13 @@ import java.util.Optional;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsServiceImpl userDetailsService ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
     }
 
     public void registerUser(SignupRequestDto signupRequestDto ) {
@@ -56,6 +63,11 @@ public class UserService {
 
     }
 
+    public Authentication getAuthentication(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
+
     public LoginResponseDto loginUser(LoginRequestDto requestDto) {
 
         User user = userRepository.findByUsername(requestDto.getUsername())
@@ -65,6 +77,8 @@ public class UserService {
         }
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname(), user.isCheckdiary());
+
+        SecurityContextHolder.getContext().setAuthentication(getAuthentication(user.getUsername()));
 
         return loginResponseDto;
 

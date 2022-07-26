@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,7 +22,7 @@ public class DiaryController {
     //일기 작성
     @PostMapping("/user/diary")
     public Diary createDiary(@RequestBody DiaryRequestDto requestDto,
-                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return diaryService.saveDiary(requestDto, userDetails);
     }
 
