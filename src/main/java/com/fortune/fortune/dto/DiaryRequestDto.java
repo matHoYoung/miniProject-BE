@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class DiaryRequestDto {
-    private String fortune;
     private String contents;
+    private String fortune;
 }

@@ -39,8 +39,11 @@ public class User {
     @Column(nullable = false)
     private  String starposition;
 
-    @Column
+    @Column(nullable = false)
     private boolean checkdiary;
+
+    @Column(nullable = false)
+    private FortuneEnum fortuneEnum;
 
 
 
@@ -52,7 +55,12 @@ public class User {
         this.dateofbirth = dateofbirth;
         this.zodiacsign = zodiacsign;
         this.starposition = starposition;
+        this.fortuneEnum = FortuneEnum.NOT_FORTUNE;
     }
-
-
+    public void updateByCheckDiary(boolean checkDiary){
+        this.checkdiary = checkDiary;
+    }
+    public void updateByCheckfortune(){
+        this.fortuneEnum = FortuneEnum.FORTUNE;
+    }
 }

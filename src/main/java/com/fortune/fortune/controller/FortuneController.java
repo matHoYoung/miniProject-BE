@@ -1,8 +1,9 @@
 package com.fortune.fortune.controller;
 
-import com.fortune.fortune.model.Diary;
+import com.fortune.fortune.security.UserDetailsImpl;
 import com.fortune.fortune.service.FortuneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,10 +18,10 @@ public class FortuneController {
     }
 
     //랜덤 운세 불러오기
-    @GetMapping("/user/fortune")
-    public String showFortune(){
-        String fortune = fortuneService.showFortune();
-        Diary diary = new Diary(fortune);
+    @GetMapping("/user/fortune/result")
+    public String showFortune(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        String fortune = fortuneService.showFortune(userDetails);
+
         return fortune;
     }
 

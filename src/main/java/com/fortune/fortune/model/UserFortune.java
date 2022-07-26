@@ -21,4 +21,9 @@ public class UserFortune {
 
     @Column(nullable = false)
     private Long userid;
+
+    public UserFortune(String fortunecontents, Long userid){
+        this.fortunecontents = fortunecontents;
+        this.userid = userid;
+    }
 }

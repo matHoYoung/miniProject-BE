@@ -1,6 +1,7 @@
 package com.fortune.fortune.model;
 
 import com.fortune.fortune.dto.DiaryRequestDto;
+import com.fortune.fortune.dto.FortuneDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
+    @Column
     private String fortune;
 
     public Diary(DiaryRequestDto requestDto, Long userid, String nickname) {

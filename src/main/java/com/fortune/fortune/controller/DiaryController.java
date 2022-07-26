@@ -1,6 +1,7 @@
 package com.fortune.fortune.controller;
 
 import com.fortune.fortune.dto.DiaryRequestDto;
+import com.fortune.fortune.dto.FortuneDto;
 import com.fortune.fortune.model.Diary;
 import com.fortune.fortune.security.UserDetailsImpl;
 import com.fortune.fortune.service.DiaryService;
@@ -21,8 +22,7 @@ public class DiaryController {
 
     //일기 작성
     @PostMapping("/user/diary")
-    public Diary createDiary(@RequestBody DiaryRequestDto requestDto,
-                                             @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public Diary createDiary(@RequestBody DiaryRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return diaryService.saveDiary(requestDto, userDetails);
     }
 

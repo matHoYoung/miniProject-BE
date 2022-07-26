@@ -1,55 +1,57 @@
 package com.fortune.fortune.service;
 
-import com.fortune.fortune.dto.FortuneDto;
 import com.fortune.fortune.model.Fortune;
-import com.fortune.fortune.repository.DiaryRepository;
+import com.fortune.fortune.model.FortuneEnum;
+import com.fortune.fortune.model.User;
+import com.fortune.fortune.model.UserFortune;
 import com.fortune.fortune.repository.FortuneRepository;
+import com.fortune.fortune.repository.UserFortuneRepository;
+import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class FortuneService {
     private final FortuneRepository fortuneRepository;
+    private final UserFortuneRepository userFortuneRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public FortuneService(FortuneRepository fortuneRepository) {
+    public FortuneService(FortuneRepository fortuneRepository, UserFortuneRepository userFortuneRepository, UserRepository userRepository) {
         this.fortuneRepository = fortuneRepository;
+        this.userFortuneRepository = userFortuneRepository;
+        this.userRepository = userRepository;
     }
 
-//    public Fortune showFortune() {
-//        List<Fortune> fortuneList = new ArrayList<>();
-//        User user = new User();
-//        Long qty = fortuneRepository.countByUserNotAndFortuneNotIn(user, fortuneList);
-//        //가져온 개수 중 랜덤한 하나의 인덱스를 뽑는다.
-//        int idx = (int) (Math.random() * qty);
-//
-//        //페이징하여 하나만 추출해낸다.
-//        Page<Fortune> fortunePage = fortuneRepository.findAllByUserNotAndFortuneNotIn(
-//                user,
-//                fortuneList,
-//                PageRequest.of(idx, 1)
-//        );
-//        String x="운세";
-//        Fortune getFortune = new Fortune(user, x);
-//        if (fortunePage.hasContent()) {
-//            getFortune = fortunePage.getContent().get(0);
-//        }
-//
-//        return getFortune;
-//    }
-        public String showFortune() {
-
+    @Transactional
+    public String showFortune(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        //Long qty = fortuneRepository.countByUserNotAndFortuneNotIn();
+        Long userId = userDetails.getUser().getId();
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        if(user.getFortuneEnum() == FortuneEnum.NOT_FORTUNE){
             long qty = fortuneRepository.count();
             int idx = (int) (Math.random() * qty);
             Long longId = Long.valueOf(idx);
             Fortune randomFortune = fortuneRepository.findAllById(longId);
 
-            return randomFortune.getFortune();
+            UserFortune userFortune = new UserFortune(randomFortune.getFortune(), userDetails.getUser().getId());
+
+            userFortuneRepository.save(userFortune);
+
+            user.updateByCheckfortune();
+
+            return userFortune.getFortunecontents();
         }
+        UserFortune userFortune1= userFortuneRepository.findByUserid(userId);
 
+        return userFortune1.getFortunecontents();
+    }
 }
-
 

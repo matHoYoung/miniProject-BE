@@ -7,4 +7,7 @@ import lombok.Setter;
 @Setter
 public class FortuneDto {
     private String fortune;
+
+    public FortuneDto(String fortune) {
+    }
 }

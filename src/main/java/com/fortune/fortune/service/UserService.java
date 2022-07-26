@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.Arrays;
@@ -170,5 +171,14 @@ public class UserService {
 
 
     }
+    @Transactional // 메소드 동작이 SQL 쿼리문임을 선언합니다.
+    public Long updateBySearch(Long id, boolean checkDiary) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
+        );
+        user.updateByCheckDiary(checkDiary);
+        return id;
+    }
+
 
 }

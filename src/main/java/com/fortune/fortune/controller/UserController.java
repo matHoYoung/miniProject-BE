@@ -25,7 +25,8 @@ public class UserController {
     @PostMapping("/user/signup")
     public String registerUser(@RequestBody SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
-        return "회원가입 성공";
+        return  "회원가입 성공";
+
     }
     // 로그인 요청 처리
     @PostMapping("/user/signin")
