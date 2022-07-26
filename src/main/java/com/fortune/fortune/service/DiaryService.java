@@ -2,11 +2,14 @@ package com.fortune.fortune.service;
 
 import com.fortune.fortune.dto.DiaryRequestDto;
 import com.fortune.fortune.model.Diary;
+import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.DiaryRepository;
+import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RequiredArgsConstructor

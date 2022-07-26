@@ -1,5 +1,6 @@
 package com.fortune.fortune.dto;
 
+import com.fortune.fortune.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,4 +13,5 @@ public class LoginResponseDto {
     private String starposition;
     private String nickname;
     private boolean checkdiary;
+
 }

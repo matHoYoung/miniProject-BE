@@ -57,11 +57,13 @@ public class UserService {
     }
 
     public LoginResponseDto loginUser(LoginRequestDto requestDto) {
+
         User user = userRepository.findByUsername(requestDto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다. "));
         if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+
         LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname(), user.isCheckdiary());
 
         return loginResponseDto;
