@@ -22,9 +22,8 @@ public class FortuneController {
 
     //랜덤 운세 불러오기
     @GetMapping("/user/fortune")
-    public Fortune showFortune(@RequestBody FortuneDto fortuneDto,
-                               @AuthenticationPrincipal UserDetailsImpl userDetails){
-        Fortune fortune = fortuneService.showFortune();
+    public String showFortune(@AuthenticationPrincipal UserDetailsImpl userDetails){
+        String fortune = fortuneService.showFortune(userDetails);
 
         return fortune;
     }

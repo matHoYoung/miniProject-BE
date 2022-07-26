@@ -4,10 +4,12 @@ import com.fortune.fortune.dto.SignupRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Optional;
 
+@DynamicUpdate
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
@@ -42,6 +44,8 @@ public class User {
     @Column
     private boolean checkdiary;
 
+    @Column
+    private boolean checkfortune;
 
 
     public User(String username, String password, String nickname, String dateofbirth, String zodiacsign, String starposition) {
@@ -53,5 +57,11 @@ public class User {
         this.starposition = starposition;
     }
 
+    public void updateByCheckDiary(boolean checkDiary){
+        this.checkdiary = checkDiary;
+    }
 
+    public void updateByCheckfortune(boolean checkFortune){
+        this.checkfortune = checkFortune;
+    }
 }

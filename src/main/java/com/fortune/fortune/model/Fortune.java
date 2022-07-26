@@ -20,6 +20,7 @@ public class Fortune {
 
 
     public Fortune(String fortune){
+
         this.fortune = fortune;
     }
 }
