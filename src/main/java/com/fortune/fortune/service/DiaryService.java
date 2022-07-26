@@ -20,6 +20,7 @@ public class DiaryService {
         String nickName = userDetails.getUser().getNickname();
 
         Diary diary = new Diary(requestDto, userId, nickName);
+
         return diaryRepository.save(diary);
     }
 

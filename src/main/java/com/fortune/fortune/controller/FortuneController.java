@@ -1,5 +1,6 @@
 package com.fortune.fortune.controller;
 
+import com.fortune.fortune.model.Diary;
 import com.fortune.fortune.service.FortuneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ public class FortuneController {
     }
 
     //랜덤 운세 불러오기
-    @GetMapping("/api/user/fortune")
+    @GetMapping("/user/fortune")
     public String showFortune(){
-        return fortuneService.showFortune();
+        String fortune = fortuneService.showFortune();
+        Diary diary = new Diary(fortune);
+        return fortune;
     }
 
 }

@@ -41,7 +41,6 @@ public class FortuneService {
 //        return getFortune;
 //    }
         public String showFortune() {
-            //Long qty = fortuneRepository.countByUserNotAndFortuneNotIn();
 
             long qty = fortuneRepository.count();
             int idx = (int) (Math.random() * qty);
