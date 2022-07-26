@@ -27,7 +27,7 @@ public class UserController {
         userService.registerUser(requestDto);
     }
     // 로그인 요청 처리
-    @PostMapping("/user/login")
+    @PostMapping("/user/signin")
     public LoginResponseDto loginUser(@RequestBody LoginRequestDto requestDto) {
         LoginResponseDto loginResponseDto = userService.loginUser(requestDto);
         return loginResponseDto;
