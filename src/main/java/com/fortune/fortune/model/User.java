@@ -39,6 +39,8 @@ public class User {
     @Column(nullable = false)
     private  String starposition;
 
+    @Column
+    private boolean checkdiary;
 
 
 

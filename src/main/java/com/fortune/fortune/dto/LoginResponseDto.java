@@ -11,4 +11,5 @@ public class LoginResponseDto {
     private String zodiacsign;
     private String starposition;
     private String nickname;
+    private boolean checkdiary;
 }

@@ -21,10 +21,9 @@ public class DiaryController {
 
     //일기 작성
     @PostMapping("/user/diary")
-    public ResponseEntity<Diary> createDiary(@RequestBody DiaryRequestDto requestDto,
+    public Diary createDiary(@RequestBody DiaryRequestDto requestDto,
                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        Diary diary = diaryService.saveDiary(requestDto, userDetails);
-        return ResponseEntity.ok().body(diary);
+        return diaryService.saveDiary(requestDto, userDetails);
     }
 
     //일기 조회
