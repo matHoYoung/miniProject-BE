@@ -18,7 +18,7 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
     @Id
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String contents;
 
     @Column(nullable = false)
@@ -26,6 +26,10 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
 
     @Column(nullable = false)
     private String nickname;
+
+    @Column
+    private Boolean fortune;
+
 
     public Diary(DiaryRequestDto requestDto, Long userid, String nickname) {
         this.contents = requestDto.getContents();

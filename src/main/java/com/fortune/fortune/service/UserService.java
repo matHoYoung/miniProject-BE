@@ -62,7 +62,7 @@ public class UserService {
         if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
-        LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname());
+        LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname(), user.isCheckdiary());
 
         return loginResponseDto;
 
