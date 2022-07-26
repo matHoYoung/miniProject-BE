@@ -20,12 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
     public void registerUser(@RequestBody SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
     }
+
     // 로그인 요청 처리
     @PostMapping("/user/signin")
     public LoginResponseDto loginUser(@RequestBody LoginRequestDto requestDto) {

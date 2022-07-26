@@ -5,7 +5,6 @@ import com.fortune.fortune.model.Diary;
 import com.fortune.fortune.security.UserDetailsImpl;
 import com.fortune.fortune.service.DiaryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
