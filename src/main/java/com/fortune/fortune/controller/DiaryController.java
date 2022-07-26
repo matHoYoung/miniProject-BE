@@ -20,7 +20,7 @@ public class DiaryController {
     private final DiaryService diaryService;
 
     //일기 작성
-    @PostMapping("/api/user/diary")
+    @PostMapping("/user/diary")
     public ResponseEntity<Diary> createDiary(@RequestBody DiaryRequestDto requestDto,
                                              @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Diary diary = diaryService.saveDiary(requestDto, userDetails);
@@ -28,7 +28,7 @@ public class DiaryController {
     }
 
     //일기 조회
-    @GetMapping("/api/user/list")
+    @GetMapping("/user/list")
     public List<Diary> getDiarys(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         return diaryService.showDiarys(userDetails);
     }

@@ -14,11 +14,13 @@ import java.util.List;
 public class DiaryService {
     private final DiaryRepository diaryRepository;
 
-    public Diary saveDiary(DiaryRequestDto requestDto, UserDetailsImpl userDetails) {
+    public Diary  saveDiary(DiaryRequestDto requestDto, UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
         String nickName = userDetails.getUser().getNickname();
 
         Diary diary = new Diary(requestDto, userId, nickName);
+
+        //userDetails.getUser().setCheckdiary(true);
 
         return diaryRepository.save(diary);
     }
