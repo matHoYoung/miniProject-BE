@@ -31,13 +31,10 @@ public class Diary extends Timestamped {// 생성,수정 시간을 자동으로 
     @Column
     private String fortune;
 
-    public Diary(DiaryRequestDto requestDto, Long userid, String nickname) {
+    public Diary(DiaryRequestDto requestDto, String fortune, Long userid, String nickname) {
         this.contents = requestDto.getContents();
-        this.fortune = requestDto.getFortune();
+        this.fortune = fortune;
         this.userid = userid;
         this.nickname = nickname;
-    }
-    public Diary(String fortune){
-        this.fortune = fortune;
     }
 }

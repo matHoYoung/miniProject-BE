@@ -5,7 +5,9 @@ import com.fortune.fortune.dto.FortuneDto;
 import com.fortune.fortune.model.Diary;
 import com.fortune.fortune.model.Fortune;
 import com.fortune.fortune.model.User;
+import com.fortune.fortune.model.UserFortune;
 import com.fortune.fortune.repository.DiaryRepository;
+import com.fortune.fortune.repository.UserFortuneRepository;
 import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +22,16 @@ import java.util.Optional;
 public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final UserRepository userRepository;
+    private final UserFortuneRepository userFortuneRepository;
 
     @Transactional
-    public Diary  saveDiary(DiaryRequestDto requestDto, UserDetailsImpl userDetails) {
+    public Diary saveDiary(DiaryRequestDto requestDto, UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
         String nickName = userDetails.getUser().getNickname();
+        UserFortune userFortune = userFortuneRepository.findByUserid(userId);
+        String fortune = userFortune.getFortunecontents();
 
-        Diary diary = new Diary(requestDto, userId, nickName);
+        Diary diary = new Diary(requestDto, fortune, userId, nickName);
 
         Optional<User> getUser = userRepository.findById(userId);
         User user = getUser.get();

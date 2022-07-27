@@ -57,10 +57,11 @@ public class User {
         this.starposition = starposition;
         this.fortuneEnum = FortuneEnum.NOT_FORTUNE;
     }
-    public void updateByCheckDiary(boolean checkDiary){
+    public void reset(boolean checkDiary){  // 운세보기, 일기작성 부분 초기화
         this.checkdiary = checkDiary;
+        this.fortuneEnum = FortuneEnum.NOT_FORTUNE;
     }
-    public void updateByCheckfortune(){
+    public void updateByCheckfortune(){  // 운세보기
         this.fortuneEnum = FortuneEnum.FORTUNE;
     }
 }

@@ -3,6 +3,7 @@ package com.fortune.fortune.service;
 import com.fortune.fortune.dto.LoginRequestDto;
 import com.fortune.fortune.dto.LoginResponseDto;
 import com.fortune.fortune.dto.SignupRequestDto;
+import com.fortune.fortune.model.FortuneEnum;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.security.UserDetailsServiceImpl;
@@ -176,9 +177,8 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
-        user.updateByCheckDiary(checkDiary);
+        user.reset(checkDiary);
         return id;
     }
-
 
 }

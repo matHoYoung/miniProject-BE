@@ -1,5 +1,6 @@
 package com.fortune.fortune.utils;
 
+import com.fortune.fortune.model.FortuneEnum;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.service.UserService;
