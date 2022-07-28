@@ -1,6 +1,5 @@
 package com.fortune.fortune.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,6 +14,5 @@ import java.time.LocalDateTime;
 public abstract class Timestamped {
 
     @CreatedDate
-    @JsonFormat(pattern = "MM월 dd일")
     private LocalDateTime createdAt;
 }

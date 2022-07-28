@@ -17,7 +17,7 @@ public class UserFortune {
     private Long id;
 
     @Column(nullable = false)
-    private String fortunecontents;
+    private String fortunecontents; // 오늘의 운세 저장
 
     @Column(nullable = false)
     private Long userid;

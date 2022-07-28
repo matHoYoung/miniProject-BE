@@ -19,7 +19,7 @@ public class Scheduler {
 
     // 초, 분, 시, 일, 월, 주 순서
     @Scheduled(cron = "0 0 5 * * *")
-    public void updatePrice() throws InterruptedException {
+    public void updateCheck() throws InterruptedException {  // // 일기작성, 운세확인 유무 초기화
         // 저장된 모든 유저을 조회합니다.
         List<User> userList = userRepository.findAll();
         for (int i=0; i<userList.size(); i++) {

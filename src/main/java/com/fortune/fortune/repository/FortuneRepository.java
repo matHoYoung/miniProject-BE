@@ -4,10 +4,6 @@ import com.fortune.fortune.model.Fortune;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FortuneRepository extends JpaRepository<Fortune, Long> {
-////    Long countByUserNotAndFortuneNotIn(User user, Collection<String> fortune);
-//    Page<Fortune> findAllByUserNotAndFortuneNotIn(User loginId, List<Fortune> fortuneList, PageRequest fortuneRequest);
-
-    long count();
-
-    Fortune findAllById(Long longId);
+    long count(); // DB에 저장된 운세 전체 개수 불러오기
+    Fortune findAllById(Long longId); // 랜덤하게 운세 불러오기
 }

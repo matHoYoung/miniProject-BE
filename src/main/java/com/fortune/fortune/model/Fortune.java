@@ -17,8 +17,4 @@ public class Fortune {
 
     @Column(nullable = false)
     private String fortune;
-
-    public Fortune(String fortune){
-        this.fortune = fortune;
-    }
 }

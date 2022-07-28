@@ -27,6 +27,7 @@ public class FortuneService {
         this.userRepository = userRepository;
     }
 
+    // 오늘의 랜덤운세 보여주기
     @Transactional
     public String showFortune(@AuthenticationPrincipal UserDetailsImpl userDetails) {
         //Long qty = fortuneRepository.countByUserNotAndFortuneNotIn();
@@ -35,20 +36,20 @@ public class FortuneService {
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );
         if(user.getFortuneEnum() == FortuneEnum.NOT_FORTUNE){
-            long qty = fortuneRepository.count();
-            int idx = (int) (Math.random() * qty);
-            Long longId = Long.valueOf(idx);
-            Fortune randomFortune = fortuneRepository.findAllById(longId);
+            long qty = fortuneRepository.count();  // DB에 저장된 운세 개수를 가져와서
+            int idx = (int) (Math.random() * qty);  // 랜덤한 숫자 추출
+            Long longId = Long.valueOf(idx); // Int를 Long으로 타입변경
+            Fortune randomFortune = fortuneRepository.findAllById(longId); // 랜덤한 운세를 Repository에서 가져옴.
 
-            UserFortune userFortune = new UserFortune(randomFortune.getFortune(), userDetails.getUser().getId());
+            UserFortune userFortune = new UserFortune(randomFortune.getFortune(), userDetails.getUser().getId()); // 유저 정보에
 
-            userFortuneRepository.save(userFortune);
+            userFortuneRepository.save(userFortune); //오늘의 운세 저장
 
-            user.updateByCheckfortune();
+            user.updateByCheckfortune(); // 운세를 확인하면 FORTUNE 값으로 변경해서 하루에  한 번만 운세확인 가능.
 
-            return userFortune.getFortunecontents();
+            return userFortune.getFortunecontents(); // 오늘의 운세 return.
         }
-        UserFortune userFortune1= userFortuneRepository.findByUserid(userId);
+        UserFortune userFortune1= userFortuneRepository.findByUserid(userId); // userId로 오늘의 운세를 userFortune에 저장.
 
         return userFortune1.getFortunecontents();
     }

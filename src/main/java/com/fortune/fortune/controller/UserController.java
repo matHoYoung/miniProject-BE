@@ -22,14 +22,14 @@ public class UserController {
 
 
     // 회원 가입 요청 처리
-    @PostMapping("/user/signup")
+    @PostMapping("/api/user/signup")
     public String registerUser(@RequestBody SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
         return  "회원가입 성공";
 
     }
     // 로그인 요청 처리
-    @PostMapping("/user/signin")
+    @PostMapping("/api/user/signin")
     public LoginResponseDto loginUser(@RequestBody LoginRequestDto requestDto) {
         LoginResponseDto loginResponseDto = userService.loginUser(requestDto);
 

@@ -1,9 +1,7 @@
 package com.fortune.fortune.service;
 
 import com.fortune.fortune.dto.DiaryRequestDto;
-import com.fortune.fortune.dto.FortuneDto;
 import com.fortune.fortune.model.Diary;
-import com.fortune.fortune.model.Fortune;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.model.UserFortune;
 import com.fortune.fortune.repository.DiaryRepository;
@@ -24,6 +22,7 @@ public class DiaryService {
     private final UserRepository userRepository;
     private final UserFortuneRepository userFortuneRepository;
 
+    // 일기 작성
     @Transactional
     public Diary saveDiary(DiaryRequestDto requestDto, UserDetailsImpl userDetails) {
         Long userId = userDetails.getUser().getId();
@@ -35,7 +34,7 @@ public class DiaryService {
 
         Optional<User> getUser = userRepository.findById(userId);
         User user = getUser.get();
-        user.setCheckdiary(true);
+        user.setCheckdiary(true); // 일기 작성시 true값으로 변경 -> 하루에 한 번만 작성가능.
         userRepository.save(user);
 
         return diaryRepository.save(diary);

@@ -3,7 +3,6 @@ package com.fortune.fortune.service;
 import com.fortune.fortune.dto.LoginRequestDto;
 import com.fortune.fortune.dto.LoginResponseDto;
 import com.fortune.fortune.dto.SignupRequestDto;
-import com.fortune.fortune.model.FortuneEnum;
 import com.fortune.fortune.model.User;
 import com.fortune.fortune.repository.UserRepository;
 import com.fortune.fortune.security.UserDetailsServiceImpl;
@@ -50,13 +49,10 @@ public class UserService {
         // 패스워드 암호화
         String password = passwordEncoder.encode(signupRequestDto.getPassword());
 
-        String dateOfBirth = signupRequestDto.getDateOfBirth();
+        String dateOfBirth = signupRequestDto.getDateOfBirth();  // 생년월일 받아서 연,월,일 값 추출.
         int[] date = Arrays.stream(dateOfBirth.split("\\."))
                 .mapToInt(Integer::parseInt)
                 .toArray();
-
-
-
         String zodiacSign = getZodiacSign(date[0]);
         String starPosition = getstarPosition(date[1],date[2]);
 
@@ -65,12 +61,12 @@ public class UserService {
 
     }
 
-    public Authentication getAuthentication(String username) {
+    public Authentication getAuthentication(String username) {  // 회원인증
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    public LoginResponseDto loginUser(LoginRequestDto requestDto) {
+    public LoginResponseDto loginUser(LoginRequestDto requestDto) {  // 로그인
         User user = userRepository.findByUsername(requestDto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("아이디를 찾을 수 없습니다. "));
         if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
@@ -78,14 +74,14 @@ public class UserService {
         }
         LoginResponseDto loginResponseDto = new LoginResponseDto(user.getZodiacsign(), user.getStarposition(), user.getNickname(), user.isCheckdiary());
 
-        SecurityContextHolder.getContext().setAuthentication(getAuthentication(user.getUsername()));
+        SecurityContextHolder.getContext().setAuthentication(getAuthentication(user.getUsername())); // SecurityContextHolder에 로그인 정보 저장
 
         return loginResponseDto;
 
     }
 
 
-    private String getstarPosition(int Month, int day) {
+    private String getstarPosition(int Month, int day) {  // 별자리 알고리즘
         String starPosition = "";
         int starday = Month*100 +day;
         if (starday >= 120  && starday <= 218) {
@@ -127,7 +123,7 @@ public class UserService {
         return starPosition;
     }
 
-    private String getZodiacSign(int year) {
+    private String getZodiacSign(int year) {  // 띠 알고리즘
         String zodiacSign = "";
 
         switch(year%12) {
@@ -173,7 +169,7 @@ public class UserService {
 
     }
     @Transactional // 메소드 동작이 SQL 쿼리문임을 선언합니다.
-    public Long updateBySearch(Long id, boolean checkDiary) {
+    public Long updateBySearch(Long id, boolean checkDiary) {  // 일기작성, 운세확인 유무 초기화
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 아이디가 존재하지 않습니다.")
         );

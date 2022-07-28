@@ -1,12 +1,10 @@
 package com.fortune.fortune.model;
 
-import com.fortune.fortune.dto.SignupRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Setter
 @Getter // get 함수를 일괄적으로 만들어줍니다.
@@ -33,16 +31,16 @@ public class User {
     @Column(nullable = false)
     private String dateofbirth;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  //띠
     private  String zodiacsign;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  //별자리
     private  String starposition;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // 일기 작성 유무
     private boolean checkdiary;
 
-    @Column(nullable = false)
+    @Column(nullable = false) // 운세 확인 유무
     private FortuneEnum fortuneEnum;
 
 
@@ -63,5 +61,5 @@ public class User {
     }
     public void updateByCheckfortune(){  // 운세보기
         this.fortuneEnum = FortuneEnum.FORTUNE;
-    }
+    } // 운세 확인하면 FORTUNE으로 값 변경
 }
